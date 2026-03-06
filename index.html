@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Установка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(145deg, #f5f7fa 0%, #e9ecf0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 16px;
+        }
+
+        .card {
+            max-width: 380px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 48px;
+            padding: 32px 24px 40px 24px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .icon-wrapper {
+            background: #007aff;
+            width: 80px;
+            height: 80px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 25px rgba(0, 122, 255, 0.3);
+            margin-bottom: 16px;
+            border: 2px solid white;
+        }
+
+        .icon {
+            font-size: 44px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -1px;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+        }
+
+        .app-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1c1c1e;
+            background: rgba(255,255,255,0.6);
+            padding: 6px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.8);
+            margin-top: 4px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1c1c1e;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 5px rgba(255,255,255,0.8);
+        }
+
+        .title span {
+            background: linear-gradient(135deg, #007aff, #5856d6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .stop-button {
+            background: #ff3b30;
+            border: none;
+            border-radius: 60px;
+            padding: 18px 36px;
+            font-size: 22px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 15px 25px rgba(255, 59, 48, 0.35), 0 5px 10px rgba(0,0,0,0.15);
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 2px solid rgba(255,255,255,0.4);
+            width: 100%;
+            max-width: 280px;
+            letter-spacing: 0.3px;
+        }
+
+        .stop-button:hover {
+            background: #ff2d20;
+            box-shadow: 0 20px 30px rgba(255, 59, 48, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .stop-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 8px 15px rgba(255, 59, 48, 0.4);
+        }
+
+        .stop-button::before {
+            content: "⏹️";
+            font-size: 24px;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        /* Для мобильных устройств */
+        @media (max-width: 400px) {
+            .card {
+                padding: 24px 16px 32px 16px;
+                border-radius: 36px;
+            }
+            .title {
+                font-size: 28px;
+            }
+            .stop-button {
+                font-size: 20px;
+                padding: 16px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- Верхняя часть: значок и надпись "Max" -->
+        <div class="header">
+            <div class="icon-wrapper">
+                <div class="icon">M</div>
+            </div>
+            <div class="app-name">Max</div>
+        </div>
+
+        <!-- Основной текст "установка Max" (жирно, красиво) -->
+        <div class="title">
+            установка <span>Max</span>
+        </div>
+
+        <!-- Кнопка "остановить скачивание" -->
+        <div class="button-container">
+            <button class="stop-button" id="playButton">
+                остановить скачивание
+            </button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const button = document.getElementById('playButton');
+            
+            // Создаём элемент audio один раз и переиспользуем
+            let audio = null;
+
+            function getAudioInstance() {
+                if (!audio) {
+                    audio = new Audio();
+                    // Важно: укажите правильный путь к nfc.mp3
+                    // Файл должен лежать рядом с этим HTML или укажите полный/относительный путь
+                    audio.src = 'nfc.mp3';
+                    audio.preload = 'auto'; // загружать заранее
+                }
+                return audio;
+            }
+
+            button.addEventListener('click', function() {
+                const audioPlayer = getAudioInstance();
+                
+                // Пытаемся воспроизвести. Если уже играет — можно перезапустить или ничего не делать.
+                // Сделаем так: при каждом клике пробуем воспроизвести с начала.
+                audioPlayer.pause(); // останавливаем текущее воспроизведение
+                audioPlayer.currentTime = 0; // сбрасываем на начало
+
+                // Воспроизводим с обработкой возможной ошибки (например, если файл не найден)
+                audioPlayer.play().catch(error => {
+                    console.warn('Воспроизведение не удалось:', error);
+                    alert('Не удалось воспроизвести nfc.mp3. Проверьте, что файл лежит рядом с HTML.');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
